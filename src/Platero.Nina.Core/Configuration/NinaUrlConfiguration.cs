@@ -21,5 +21,10 @@ namespace Platero.Nina.Core.Configuration
         /// Die URL für den Abruf von COVID-19-Regeln.
         /// </summary>
         public Uri? NinaCovidRules { get; set; }
+
+        /// <summary>
+        /// Die URL für den Abruf von Katastrophen-Warnmeldungen.
+        /// </summary>
+        public Uri? NinaKatWarn { get; set; }
     }
 }
