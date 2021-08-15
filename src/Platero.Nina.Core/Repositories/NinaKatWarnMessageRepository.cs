@@ -36,8 +36,6 @@ namespace Platero.Nina.Core.Repositories
                 throw new InvalidOperationException("Invalid configuration: there is no base address known for AGS-dashboards.");
             }
 
-            var stream = await _client.GetAsync(null as Uri);
-            
             var response = await _client.GetFromJsonAsync<MapWarningDto[]>(null as Uri) ?? throw new InvalidDataException("Could not parse response.");
             
             return response.Select(p => new KatWarnMessage(p.Id ?? throw new InvalidDataException("MapWarning is has no value."))
