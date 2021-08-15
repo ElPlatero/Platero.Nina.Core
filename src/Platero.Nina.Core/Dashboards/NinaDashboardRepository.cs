@@ -6,6 +6,7 @@ using System.Net.Http.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Platero.Nina.Core.Abstractions;
+using Platero.Nina.Core.Abstractions.Enums;
 using Platero.Nina.Core.Abstractions.Models;
 using Platero.Nina.Core.Extensions;
 
@@ -46,7 +47,7 @@ namespace Platero.Nina.Core.Dashboards
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadFromJsonAsync<DashboardMessage[]>();
-            return new NinaDashboard
+            return new NinaDashboard(areaCode)
             {
                 Messages = content?.Select(Convert).ToHashSet() ?? new()
             };
@@ -100,6 +101,7 @@ namespace Platero.Nina.Core.Dashboards
         #region Nina-Dashboard-Dto
         //  externally defined data
         // ReSharper disable UnusedAutoPropertyAccessor.Global
+        // ReSharper disable ClassNeverInstantiated.Global
         #pragma warning disable 1591
         public class TransKeysDto
         {
@@ -131,7 +133,7 @@ namespace Platero.Nina.Core.Dashboards
             public DataDto? Data { get; set; }
         }
 
-        public class I18nTitleDto
+        public class I18NTitleDto
         {
             public string? De { get; set; }
         }
@@ -141,11 +143,12 @@ namespace Platero.Nina.Core.Dashboards
             public string? Id { get; set; }
             public PayloadDto? Payload { get; set; }
             [JsonPropertyName("i18nTitle")]
-            public I18nTitleDto? I18NTitle { get; set; }
+            public I18NTitleDto? I18NTitle { get; set; }
             public DateTime Sent { get; set; }
         }        
         #pragma warning restore 1591
         // ReSharper restore UnusedAutoPropertyAccessor.Global
+        // ReSharper restore ClassNeverInstantiated.Global
         #endregion
     }
 }

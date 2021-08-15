@@ -9,11 +9,11 @@ using Platero.Nina.Core.Extensions;
 
 namespace ExampleApp
 {
-    class Program
+    internal static class Program
     {
-        static async Task Main()
+        private static async Task Main()
         {
-            IOptions<NinaConfiguration> options = new OptionsWrapper<NinaConfiguration>(new());
+            IOptions<NinaConfiguration> options = new OptionsWrapper<NinaConfiguration>(new NinaConfiguration());
             var serviceCollection = new ServiceCollection()
                 .AddNinaRepositoryClients(options);
 
@@ -30,7 +30,7 @@ namespace ExampleApp
                 var dashboard = await warningsRepository.GetDashboardAsync(areaCode);
                 foreach (var warning in dashboard.Messages)
                 {
-                    Console.WriteLine($"{areaCode.Name}, {warning.Date:dd.MM.yyyy, HH:mm} Uhr: {warning.Title} ({warning.Type})");
+                    Console.WriteLine($"{dashboard.AreaCode.Name}, {warning.Date:dd.MM.yyyy, HH:mm} Uhr: {warning.Title} ({warning.Type})");
                 }
             }
         }
