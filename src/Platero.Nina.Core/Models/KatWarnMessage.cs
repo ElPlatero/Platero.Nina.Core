@@ -36,7 +36,12 @@ namespace Platero.Nina.Core.Models
         /// Die Art der Meldung.
         /// </summary>
         public NinaMessageContentType ContentType { get; init; }
-        
+
+        /// <summary>
+        /// Der Inhalt der Warnmeldung.
+        /// </summary>
+        public string Content { get; init; }
+
         /// <inheritdoc />
         public override bool Equals(object? obj) => obj is KatWarnMessage other && Id.Equals(other.Id, StringComparison.InvariantCultureIgnoreCase);
 

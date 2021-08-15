@@ -64,9 +64,9 @@ namespace Platero.Nina.Core.Repositories
             if (dto.Payload.Data == null) throw new InvalidDataException("Message payload has no data.");
 
             var type = new NinaMessageType(
-                ConvertContentType(dto.Payload.Type) ?? throw new InvalidDataException($"Unknown value for payload type: {dto.Payload.Type}."),
-                ConvertMessageType(dto.Payload.Data.MsgType) ?? throw new InvalidDataException($"Unknown value for payload data message type: {dto.Payload.Data.MsgType}"),
-                ConvertSeverity(dto.Payload.Data.Severity) ?? throw new InvalidDataException($"Unknown value for payload data severity: {dto.Payload.Data.Severity}")
+                Adapter.ConvertContentType(dto.Payload.Type) ?? throw new InvalidDataException($"Unknown value for payload type: {dto.Payload.Type}."),
+                Adapter.ConvertMessageType(dto.Payload.Data.MsgType) ?? throw new InvalidDataException($"Unknown value for payload data message type: {dto.Payload.Data.MsgType}"),
+                Adapter.ConvertSeverity(dto.Payload.Data.Severity) ?? throw new InvalidDataException($"Unknown value for payload data severity: {dto.Payload.Data.Severity}")
             );
 
             return new NinaMessage(type, dto.Id, dto.Payload.Hash)
@@ -76,26 +76,6 @@ namespace Platero.Nina.Core.Repositories
                 Source = dto.Payload.Data.Provider ?? throw new InvalidDataException("Message payload data provider has no value.")
             };
         }
-
-        private static NinaMessageContentType? ConvertContentType(string? contentType) => contentType?.ToUpperInvariant() switch
-        {
-            "ALERT" => NinaMessageContentType.Alert,
-            _ => null
-        };
-
-        private static NinaMessageStatusType? ConvertMessageType(string? messageType) => messageType?.ToUpperInvariant() switch
-        {
-            "UPDATE" => NinaMessageStatusType.Update,
-            _ => null
-        };
-
-        private static NinaSeverityLevel? ConvertSeverity(string? severity) => severity?.ToUpperInvariant() switch
-        {
-            "MINOR" => NinaSeverityLevel.Minor,
-            "SEVERE" => NinaSeverityLevel.Severe,
-            _ => null
-        };
-
         #endregion
         
         #region Nina-Dashboard-Dto
