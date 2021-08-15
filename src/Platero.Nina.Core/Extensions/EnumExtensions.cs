@@ -5,7 +5,10 @@ using System.Linq;
 using System.Reflection;
 
 namespace Platero.Nina.Core.Extensions {
-    internal static class EnumExtensions {
+    /// <summary>
+    /// Erweiterungen für Enumerationen.
+    /// </summary>
+    public static class EnumExtensions {
         /// <summary>
         /// Liefert für einen Enumerationswert den Inhalt des <see cref="DescriptionAttribute"/>. Wenn keines gesetzt ist, wird ToString() geliefert.
         /// </summary>
