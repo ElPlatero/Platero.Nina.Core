@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace Platero.Nina.Core.Abstractions.Models
+namespace Platero.Nina.Core.Models
 {
     /// <summary>
     /// Bildet eine Menge von Regeln der Corona-19-Pandemie ab.
