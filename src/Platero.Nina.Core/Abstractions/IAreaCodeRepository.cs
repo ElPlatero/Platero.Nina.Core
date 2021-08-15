@@ -15,6 +15,6 @@ namespace Platero.Nina.Core.Abstractions
         /// Ruft die Regionalschlüssel ab.
         /// </summary>
         /// <returns> Eine Menge von Regionalschlüsseln. </returns>
-        public Task<ICollection<AreaCode>> GetAreaCodeCollectionAsync();
+        public Task<HashSet<AreaCode>> GetAreaCodeSetAsync();
     }
 }

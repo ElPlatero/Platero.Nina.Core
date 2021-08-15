@@ -11,5 +11,10 @@ namespace Platero.Nina.Core.Configuration
         /// Die URL für die Regionalschlüssel-Stammdaten.
         /// </summary>
         public Uri? AreaCodes { get; set; }
+
+        /// <summary>
+        /// Die URL für die Warnungen auf Kreisebene.
+        /// </summary>
+        public Uri? NinaDashboard { get; set; }
     }
 }
