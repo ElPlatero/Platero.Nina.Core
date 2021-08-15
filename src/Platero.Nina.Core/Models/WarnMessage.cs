@@ -6,13 +6,13 @@ namespace Platero.Nina.Core.Models
     /// <summary>
     /// Bildet eine Katastrophen-Warnmeldung ab.
     /// </summary>
-    public class KatWarnMessage
+    public class WarnMessage
     {
         /// <summary>
         /// Erzeugt eine neue Instanz einer Katastrophen-Warnmeldung.
         /// </summary>
         /// <param name="id">Der eindeutige Bezeichner der Meldung.</param>
-        public KatWarnMessage(string id) => Id = id;
+        public WarnMessage(string id) => Id = id;
         
         /// <summary>
         /// Der eindeutige Bezeichner der Meldung.
@@ -43,7 +43,7 @@ namespace Platero.Nina.Core.Models
         public string Content { get; init; } = string.Empty;
 
         /// <inheritdoc />
-        public override bool Equals(object? obj) => obj is KatWarnMessage other && Id.Equals(other.Id, StringComparison.InvariantCultureIgnoreCase);
+        public override bool Equals(object? obj) => obj is WarnMessage other && Id.Equals(other.Id, StringComparison.InvariantCultureIgnoreCase);
 
         /// <inheritdoc />
         public override int GetHashCode() => Id.GetHashCode();

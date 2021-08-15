@@ -9,6 +9,7 @@
         public static NinaMessageContentType? ConvertContentType(string? contentType) => contentType?.ToUpperInvariant() switch
         {
             "ALERT" => NinaMessageContentType.Alert,
+            "UPDATE" => NinaMessageContentType.Update,
             _ => null
         };
 
@@ -23,7 +24,9 @@
         public static NinaSeverityLevel? ConvertSeverity(string? severity) => severity?.ToUpperInvariant() switch
         {
             "MINOR" => NinaSeverityLevel.Minor,
+            "MODERATE" => NinaSeverityLevel.Moderate ,
             "SEVERE" => NinaSeverityLevel.Severe,
+            "EXTREME" => NinaSeverityLevel.Extreme,
             _ => null
         };
 

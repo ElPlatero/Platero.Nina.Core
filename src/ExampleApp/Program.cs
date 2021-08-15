@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Platero.Nina.Core.Abstractions;
+using Platero.Nina.Core.Abstractions.Enums;
 using Platero.Nina.Core.Configuration;
 using Platero.Nina.Core.Extensions;
 
@@ -22,7 +23,7 @@ namespace ExampleApp
             var areaCodeRepository = services.GetService<IAreaCodeRepository>() ?? throw new InvalidOperationException($"Could not resolve type {nameof(IAreaCodeRepository)}");
             var warningsRepository = services.GetService<IDashboardRepository>() ?? throw new InvalidOperationException($"Could not resolve type {nameof(IDashboardRepository)}");
             var covidRulesRepository = services.GetService<ICovidRulesRepository>() ?? throw new InvalidOperationException($"Could not resolve type {nameof(ICovidRulesRepository)}");
-            var katwarnRepository = services.GetService<IKatWarnMessageRepository>() ?? throw new InvalidOperationException($"Could not resolve type {nameof(IKatWarnMessageRepository)}");
+            var warnMessageRepository = services.GetService<IWarnMessageRepository>() ?? throw new InvalidOperationException($"Could not resolve type {nameof(IWarnMessageRepository)}");
             
             var areaCodes = await areaCodeRepository!.GetAreaCodeSetAsync();
 
@@ -52,10 +53,10 @@ namespace ExampleApp
 
             Console.WriteLine();
             Console.WriteLine("Derzeit aktuelle bundesweite Katastrophenmeldungen:");
-            var katWarnMessages = await katwarnRepository.GetKatWarnMessages();
-            foreach (var katWarnMessage in katWarnMessages)
+            var warnMessages = await warnMessageRepository.GetWarnMessages(WarnMessageType.Dwd);
+            foreach (var warnMessage in warnMessages)
             {
-                Console.WriteLine("{2:g} Uhr: ({0} / {1}) {3}", katWarnMessage.ContentType.ToDescription(), katWarnMessage.Severity.ToDescription(), katWarnMessage.StartDate, katWarnMessage.Content);
+                Console.WriteLine("{2:g} Uhr: ({0} / {1}) {3}", warnMessage.ContentType.ToDescription(), warnMessage.Severity.ToDescription(), warnMessage.StartDate, warnMessage.Content);
             }
 
         }

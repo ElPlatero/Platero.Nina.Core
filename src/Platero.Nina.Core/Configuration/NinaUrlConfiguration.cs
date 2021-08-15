@@ -25,6 +25,6 @@ namespace Platero.Nina.Core.Configuration
         /// <summary>
         /// Die URL für den Abruf von Katastrophen-Warnmeldungen.
         /// </summary>
-        public Uri? NinaKatWarn { get; set; }
+        public Uri? Warnings { get; set; }
     }
 }
