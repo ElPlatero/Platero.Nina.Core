@@ -13,8 +13,8 @@ namespace Platero.Nina.Core.Abstractions
         /// <summary>
         /// Ruft die aktuellen Katastrophen-Warnmeldungen des Bundesamts für Bevölkerungsschutz ab. 
         /// </summary>
-        /// <param name="type"> Das Wartnsystem, dessen Meldungen angezeigt werden sollen.  </param>
+        /// <param name="sources">Die Quellen, deren Meldungen berücksichigt werden sollen.</param>
         /// <returns>Eine Menge von Katastrophen-Warnmeldungen.</returns>
-        public Task<ICollection<WarnMessage>> GetWarnMessages(WarnMessageType type = WarnMessageType.MoWas);
+        public Task<ICollection<WarnMessage>> GetWarnMessages(params WarnMessageType[] sources);
     }
 }

@@ -5,9 +5,6 @@ namespace Platero.Nina.Core.Abstractions.Enums
     /// <summary>
     /// Die verschiedenen Systeme, die Warnmeldungen produzieren.
     /// </summary>
-    /// <remarks>
-    /// KatWarn, Nina und BiWapp sind alle an MoWas angebunden. MoWas müsste daher alle Meldungen enthalten. Wieso es mehrere Endpunkte gibt, weiß der Himmel, es erschließt sich nicht.
-    /// </remarks>
     public enum WarnMessageType
     {
         /// <summary>

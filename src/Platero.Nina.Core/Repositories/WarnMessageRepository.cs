@@ -30,14 +30,33 @@ namespace Platero.Nina.Core.Repositories
         }
 
         /// <inheritdoc />
-        public async Task<ICollection<WarnMessage>> GetWarnMessages(WarnMessageType type = WarnMessageType.MoWas)
+        public async Task<ICollection<WarnMessage>> GetWarnMessages(params WarnMessageType[] sources)
         {
             if (_client.BaseAddress == null)
             {
                 throw new InvalidOperationException("Invalid configuration: there is no base address known for AGS-dashboards.");
             }
 
-            if (!_client.BaseAddress.TryCombine($"{type.ToString().ToLowerInvariant()}/mapData.json", out var uri))
+            if (sources?.Any() != true)
+            {
+                sources = Enum.GetValues<WarnMessageType>();
+            }
+
+            HashSet<WarnMessage> result = new();
+            foreach (var source in sources)
+            {
+                foreach (var message in await GetWarnMessages(source))
+                {
+                    result.Add(message);
+                }
+            }
+
+            return result;
+        }
+
+        private async Task<HashSet<WarnMessage>> GetWarnMessages(WarnMessageType type)
+        {
+            if (!_client.BaseAddress!.TryCombine($"{type.ToString().ToLowerInvariant()}/mapData.json", out var uri))
             {
                 throw new InvalidOperationException($"Could not determine endpoint for warnings from \"{type.ToDescription()}\".");
             }
@@ -53,7 +72,6 @@ namespace Platero.Nina.Core.Repositories
                 Content = p.I18NTitle?.De ?? throw new InvalidDataException("Mapwarning has no text.")
             }).ToHashSet();
         }
-
         
         #region MapWarning-Dto
         //  externally defined data
