@@ -10,7 +10,7 @@ using Platero.Nina.Core.Abstractions;
 using Platero.Nina.Core.Abstractions.Models;
 using Platero.Nina.Core.Json;
 
-namespace Platero.Nina.Core.AreaCodes
+namespace Platero.Nina.Core.Repositories
 {
     /// <summary>
     /// Implementiert das <see cref="IAreaCodeRepository"/> für die XÖV-Schnittstelle von www.xrepository.de.
@@ -42,8 +42,10 @@ namespace Platero.Nina.Core.AreaCodes
 
         #region XÖV-Dto
         //  externally defined data
-        #pragma warning disable 1591
-        public class GetXoevAreaCodesResponse
+        // ReSharper disable UnusedAutoPropertyAccessor.Local
+        // ReSharper disable UnusedMember.Local
+        // ReSharper disable ClassNeverInstantiated.Local
+        private class GetXoevAreaCodesResponse
         {
             [JsonPropertyName("metadaten")]
             public Metadaten? MetaData { get; set; }
@@ -52,7 +54,7 @@ namespace Platero.Nina.Core.AreaCodes
             [JsonPropertyName("daten")]
             public string[][]? Data { get; set; }
         }
-        public class Metadaten
+        private class Metadaten
         {
             public string? Kennung { get; set; }
             public string? KennungInhalt { get; set; }
@@ -72,12 +74,12 @@ namespace Platero.Nina.Core.AreaCodes
             public IList<object>? Bezugsorte { get; set; }
         }
 
-        public class Verwendung
+        private class Verwendung
         {
             public string? Code { get; set; }
         }
 
-        public class Spalten
+        private class Spalten
         {
             public string? SpaltennameLang { get; set; }
             public string? SpaltennameTechnisch { get; set; }
@@ -86,7 +88,9 @@ namespace Platero.Nina.Core.AreaCodes
             public Verwendung? Verwendung { get; set; }
             public bool EmpfohleneCodeSpalte { get; set; }
         }
-        #pragma warning restore 1591
+        // ReSharper restore UnusedAutoPropertyAccessor.Local
+        // ReSharper restore UnusedMember.Local
+        // ReSharper restore ClassNeverInstantiated.Local
         #endregion
     }
 }

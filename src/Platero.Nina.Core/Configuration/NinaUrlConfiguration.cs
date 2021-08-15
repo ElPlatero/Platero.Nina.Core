@@ -16,5 +16,10 @@ namespace Platero.Nina.Core.Configuration
         /// Die URL für die Warnungen auf Kreisebene.
         /// </summary>
         public Uri? NinaDashboard { get; set; }
+
+        /// <summary>
+        /// Die URL für den Abruf von COVID-19-Regeln.
+        /// </summary>
+        public Uri? NinaCovidRules { get; set; }
     }
 }
