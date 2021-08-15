@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Platero.Nina.Core.Abstractions;
@@ -30,7 +31,7 @@ namespace Platero.Nina.Core.Repositories
         }
 
         /// <inheritdoc />
-        public async Task<ICollection<WarnMessage>> GetWarnMessages(params WarnMessageType[] sources)
+        public async IAsyncEnumerable<WarnMessage> GetWarnMessagesAsync(bool loadDetails = false, params WarnMessageType[] sources)
         {
             if (_client.BaseAddress == null)
             {
@@ -45,16 +46,22 @@ namespace Platero.Nina.Core.Repositories
             HashSet<WarnMessage> result = new();
             foreach (var source in sources)
             {
-                foreach (var message in await GetWarnMessages(source))
+                foreach (var message in await GetWarnMessagesAsync(source))
                 {
-                    result.Add(message);
+                    if (result.Add(message))
+                    {
+                        if (loadDetails)
+                        {
+                            await LoadDescriptionAsync(message);    
+                        }
+
+                        yield return message;
+                    }
                 }
             }
-
-            return result;
         }
 
-        private async Task<HashSet<WarnMessage>> GetWarnMessages(WarnMessageType type)
+        private async Task<HashSet<WarnMessage>> GetWarnMessagesAsync(WarnMessageType type)
         {
             if (!_client.BaseAddress!.TryCombine($"{type.ToString().ToLowerInvariant()}/mapData.json", out var uri))
             {
@@ -72,6 +79,17 @@ namespace Platero.Nina.Core.Repositories
                 Content = p.I18NTitle?.De ?? throw new InvalidDataException("Mapwarning has no text.")
             }).ToHashSet();
         }
+
+        private async Task LoadDescriptionAsync(WarnMessage message)
+        {
+            if (!_client.BaseAddress!.TryCombine($"warnings/{message.Id}.json", out var uri))
+            {
+                throw new InvalidOperationException($"Could not determine endpoint for warnings from \"{message.Id}\".");
+            }
+            
+            var details = await _client.GetFromJsonAsync<MapWarningDetailDto>(uri);
+            message.Details = string.Join(", ", details?.Info?.Select(p => p.Description) ?? ArraySegment<string?>.Empty);
+        } 
         
         #region MapWarning-Dto
         //  externally defined data
@@ -92,6 +110,16 @@ namespace Platero.Nina.Core.Repositories
         private class I18NTitle
         {
             public string? De { get; set; }
+        }
+
+        private class MapWarningDetailDto
+        {
+            public MapWarningDetailInfo[]? Info { get; set; }
+        }
+
+        private class MapWarningDetailInfo
+        {
+            public string? Description { get; set; }
         }
         // ReSharper restore UnusedAutoPropertyAccessor.Local
         // ReSharper restore UnusedMember.Local

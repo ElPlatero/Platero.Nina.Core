@@ -1,5 +1,6 @@
 ﻿using System;
 using Platero.Nina.Core.Abstractions.Enums;
+using Platero.Nina.Core.Repositories;
 
 namespace Platero.Nina.Core.Models
 {
@@ -41,6 +42,11 @@ namespace Platero.Nina.Core.Models
         /// Der Inhalt der Warnmeldung.
         /// </summary>
         public string Content { get; init; } = string.Empty;
+
+        /// <summary>
+        /// Die Details der Meldung. Können gesondert geladen werden.
+        /// </summary>
+        public string? Details { get; set; }
 
         /// <inheritdoc />
         public override bool Equals(object? obj) => obj is WarnMessage other && Id.Equals(other.Id, StringComparison.InvariantCultureIgnoreCase);
