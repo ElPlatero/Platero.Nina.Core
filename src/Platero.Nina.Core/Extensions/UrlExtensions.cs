@@ -21,7 +21,7 @@ namespace Platero.Nina.Core.Extensions
 
             var newPath = $"{baseUri.ToString().TrimEnd('/')}/{relativeUrl.TrimStart('/')}";
 
-            if (!Uri.TryCreate(newPath, baseUri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative, out Uri? newResult))
+            if (!Uri.TryCreate(newPath, baseUri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative, out var newResult))
             {
                 resultingUri = baseUri;
                 return false;
