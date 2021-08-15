@@ -15,7 +15,7 @@ namespace Platero.Nina.Core.Repositories
     /// <summary>
     /// Implementiert das <see cref="IKatWarnMessageRepository"/> für die Schnittstelle des Bundesamtes für Bevölkerungsschutz.
     /// </summary>
-    public class KatWarnMessageRepository : IKatWarnMessageRepository
+    public class NinaKatWarnMessageRepository : IKatWarnMessageRepository
     {
         private readonly HttpClient _client;
 
@@ -23,7 +23,7 @@ namespace Platero.Nina.Core.Repositories
         /// Erzeugt ein neues Repository für den Zugriff auf aktuelle Katastrophen-Warnmeldungen des Bundesamtes für Bevölkerungsschutz.
         /// </summary>
         /// <param name="client">Der zu nutzende HttpClient. </param>
-        public KatWarnMessageRepository(HttpClient client)
+        public NinaKatWarnMessageRepository(HttpClient client)
         {
             _client = client;
         }
@@ -36,6 +36,8 @@ namespace Platero.Nina.Core.Repositories
                 throw new InvalidOperationException("Invalid configuration: there is no base address known for AGS-dashboards.");
             }
 
+            var stream = await _client.GetAsync(null as Uri);
+            
             var response = await _client.GetFromJsonAsync<MapWarningDto[]>(null as Uri) ?? throw new InvalidDataException("Could not parse response.");
             
             return response.Select(p => new KatWarnMessage(p.Id ?? throw new InvalidDataException("MapWarning is has no value."))
