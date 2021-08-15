@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Platero.Nina.Core.Abstractions.Models
+namespace Platero.Nina.Core.Models
 {
     /// <summary>
     /// Eine Nachricht (Warnung) des Bundesamtes für Bevölkerungsschutz.

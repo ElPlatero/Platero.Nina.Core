@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Platero.Nina.Core.Abstractions.Models;
+using Platero.Nina.Core.Models;
 
 namespace Platero.Nina.Core.Abstractions
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Platero.Nina.Core.Abstractions.Models
+namespace Platero.Nina.Core.Models
 {
     /// <summary>
     /// Eine Meldungsübersicht für einen amtlichen Gebietsschlüssel auf Kreisebene.

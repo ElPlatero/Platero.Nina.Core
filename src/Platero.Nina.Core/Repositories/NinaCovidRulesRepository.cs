@@ -5,8 +5,8 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Platero.Nina.Core.Abstractions;
-using Platero.Nina.Core.Abstractions.Models;
 using Platero.Nina.Core.Extensions;
+using Platero.Nina.Core.Models;
 
 namespace Platero.Nina.Core.Repositories
 {

@@ -1,7 +1,7 @@
 ﻿using Platero.Nina.Core.Abstractions.Enums;
 using Platero.Nina.Core.Extensions;
 
-namespace Platero.Nina.Core.Abstractions.Models
+namespace Platero.Nina.Core.Models
 {
     /// <summary>
     /// Bildet die Art des Inhalts, den aktuellen Status und die Schwere der Meldung ab.
