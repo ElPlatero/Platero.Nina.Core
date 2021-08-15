@@ -11,6 +11,11 @@ namespace Platero.Nina.Core.Abstractions.Enums
         /// Ein Alarm.
         /// </summary>
         [Description("Alarm")]
-        Alert
+        Alert,
+        /// <summary>
+        /// Eine Aktualisierung.
+        /// </summary>
+        [Description("Aktualisierung")]
+        Update
     }
 }

@@ -8,14 +8,15 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Platero.Nina.Core.Abstractions;
 using Platero.Nina.Core.Abstractions.Enums;
+using Platero.Nina.Core.Extensions;
 using Platero.Nina.Core.Models;
 
 namespace Platero.Nina.Core.Repositories
 {
     /// <summary>
-    /// Implementiert das <see cref="IKatWarnMessageRepository"/> für die Schnittstelle des Bundesamtes für Bevölkerungsschutz.
+    /// Implementiert das <see cref="IWarnMessageRepository"/> für die Schnittstelle des Bundesamtes für Bevölkerungsschutz.
     /// </summary>
-    public class NinaKatWarnMessageRepository : IKatWarnMessageRepository
+    public class WarnMessageRepository : IWarnMessageRepository
     {
         private readonly HttpClient _client;
 
@@ -23,22 +24,27 @@ namespace Platero.Nina.Core.Repositories
         /// Erzeugt ein neues Repository für den Zugriff auf aktuelle Katastrophen-Warnmeldungen des Bundesamtes für Bevölkerungsschutz.
         /// </summary>
         /// <param name="client">Der zu nutzende HttpClient. </param>
-        public NinaKatWarnMessageRepository(HttpClient client)
+        public WarnMessageRepository(HttpClient client)
         {
             _client = client;
         }
-        
+
         /// <inheritdoc />
-        public async Task<ICollection<KatWarnMessage>> GetKatWarnMessages()
+        public async Task<ICollection<WarnMessage>> GetWarnMessages(WarnMessageType type = WarnMessageType.MoWas)
         {
             if (_client.BaseAddress == null)
             {
                 throw new InvalidOperationException("Invalid configuration: there is no base address known for AGS-dashboards.");
             }
 
-            var response = await _client.GetFromJsonAsync<MapWarningDto[]>(null as Uri) ?? throw new InvalidDataException("Could not parse response.");
+            if (!_client.BaseAddress.TryCombine($"{type.ToString().ToLowerInvariant()}/mapData.json", out var uri))
+            {
+                throw new InvalidOperationException($"Could not determine endpoint for warnings from \"{type.ToDescription()}\".");
+            }
+
+            var response = await _client.GetFromJsonAsync<MapWarningDto[]>(uri) ?? throw new InvalidDataException("Could not parse response.");
             
-            return response.Select(p => new KatWarnMessage(p.Id ?? throw new InvalidDataException("MapWarning is has no value."))
+            return response.Select(p => new WarnMessage(p.Id ?? throw new InvalidDataException("MapWarning is has no value."))
             {
                 Version = p.Version,
                 StartDate = p.StartDate,
@@ -49,7 +55,7 @@ namespace Platero.Nina.Core.Repositories
         }
 
         
-        #region Nina-KatWarn-MapWarning-Dto
+        #region MapWarning-Dto
         //  externally defined data
         // ReSharper disable UnusedAutoPropertyAccessor.Local
         // ReSharper disable UnusedMember.Local

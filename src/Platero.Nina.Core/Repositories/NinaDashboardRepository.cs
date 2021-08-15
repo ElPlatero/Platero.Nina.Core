@@ -47,6 +47,7 @@ namespace Platero.Nina.Core.Repositories
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadFromJsonAsync<DashboardMessage[]>();
+            
             return new NinaDashboard(areaCode)
             {
                 Messages = content?.Select(Convert).ToHashSet() ?? new()

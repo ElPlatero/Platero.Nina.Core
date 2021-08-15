@@ -12,10 +12,23 @@ namespace Platero.Nina.Core.Abstractions.Enums
         /// </summary>
         [Description("geringfügig")]
         Minor,
+        
+        /// <summary>
+        /// Warnung vor mittelschwerem Vorfall.
+        /// </summary>
+        [Description("mittelschwer")]
+        Moderate,
+
         /// <summary>
         /// Warnung vor einem schweren Vorfall.
         /// </summary>
         [Description("schwerwiegend")]
-        Severe
+        Severe,
+        
+        /// <summary>
+        /// Warnung vor extremen Vorfall.
+        /// </summary>
+        [Description("extrem")]
+        Extreme
     }
 }
