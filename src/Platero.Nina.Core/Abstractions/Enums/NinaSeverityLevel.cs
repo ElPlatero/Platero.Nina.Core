@@ -8,6 +8,11 @@ namespace Platero.Nina.Core.Abstractions.Enums
     public enum NinaSeverityLevel
     {
         /// <summary>
+        /// Nicht festgelegt.
+        /// </summary>
+        Undefined,
+
+        /// <summary>
         /// Warnung vor einem geringfügigen Vorfall.
         /// </summary>
         [Description("geringfügig")]

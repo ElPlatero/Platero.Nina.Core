@@ -7,18 +7,13 @@ namespace Platero.Nina.Core.Models
     /// <summary>
     /// Bildet eine Katastrophen-Warnmeldung ab.
     /// </summary>
-    public class WarnMessage
+    public class WarnMessage : WarnMessageBase
     {
         /// <summary>
         /// Erzeugt eine neue Instanz einer Katastrophen-Warnmeldung.
         /// </summary>
         /// <param name="id">Der eindeutige Bezeichner der Meldung.</param>
-        public WarnMessage(string id) => Id = id;
-        
-        /// <summary>
-        /// Der eindeutige Bezeichner der Meldung.
-        /// </summary>
-        public string Id { get; }
+        public WarnMessage(string id): base(id) { }
         
         /// <summary> Die Version der Meldung. </summary>
         public int Version { get; init; }
@@ -42,11 +37,6 @@ namespace Platero.Nina.Core.Models
         /// Der Inhalt der Warnmeldung.
         /// </summary>
         public string Content { get; init; } = string.Empty;
-
-        /// <summary>
-        /// Die Details der Meldung. Können gesondert geladen werden.
-        /// </summary>
-        public string? Details { get; set; }
 
         /// <inheritdoc />
         public override bool Equals(object? obj) => obj is WarnMessage other && Id.Equals(other.Id, StringComparison.InvariantCultureIgnoreCase);

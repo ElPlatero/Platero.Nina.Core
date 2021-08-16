@@ -13,9 +13,14 @@ namespace Platero.Nina.Core.Abstractions
         /// <summary>
         /// Ruft die aktuellen Katastrophen-Warnmeldungen des Bundesamts für Bevölkerungsschutz ab. 
         /// </summary>
-        /// <param name="loadDetails">Lädt auch die Details der Meldungen nach.</param>
         /// <param name="sources">Die Quellen, deren Meldungen berücksichigt werden sollen.</param>
         /// <returns>Eine Menge von Katastrophen-Warnmeldungen.</returns>
-        public IAsyncEnumerable<WarnMessage> GetWarnMessagesAsync(bool loadDetails = false, params WarnMessageType[] sources);
+        public IAsyncEnumerable<WarnMessage> GetWarnMessagesAsync(params WarnMessageType[] sources);
+
+        /// <summary>
+        /// Lädt die Details zu einer Warnmeldung nach.
+        /// </summary>
+        /// <returns> Die nachgeladenen Details. </returns>
+        Task<WarnMessageDetails?> GetWarnMessagesDetailsAsync(WarnMessageBase message);
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Platero.Nina.Core.Abstractions.Enums
+﻿using Platero.Nina.Core.Models;
+
+namespace Platero.Nina.Core.Abstractions.Enums
 {
     /// <summary>
     /// Erzeugt aus diskreten Zeichenketten entsprechende Enumerationswerte.
@@ -10,6 +12,7 @@
         {
             "ALERT" => NinaMessageContentType.Alert,
             "UPDATE" => NinaMessageContentType.Update,
+            "CANCEL" => NinaMessageContentType.Cancel
             _ => null
         };
 
@@ -27,6 +30,13 @@
             "MODERATE" => NinaSeverityLevel.Moderate ,
             "SEVERE" => NinaSeverityLevel.Severe,
             "EXTREME" => NinaSeverityLevel.Extreme,
+            _ => null
+        };
+
+        /// <summary> Erzeugt den <see cref="NinaSeverityLevel"/>. </summary>
+        public static WarnMessageUrgency? ConvertUrgency(string? urgency) => urgency?.ToUpperInvariant() switch
+        {
+            "URGENT" => WarnMessageUrgency.Urgent,
             _ => null
         };
 

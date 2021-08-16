@@ -16,6 +16,11 @@ namespace Platero.Nina.Core.Abstractions.Enums
         /// Eine Aktualisierung.
         /// </summary>
         [Description("Aktualisierung")]
-        Update
+        Update,
+        /// <summary>
+        /// Beendigung einer Warnung.
+        /// </summary>
+        [Description("Beendigung")]
+        Cancel
     }
 }

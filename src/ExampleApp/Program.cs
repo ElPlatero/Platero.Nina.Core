@@ -53,9 +53,9 @@ namespace ExampleApp
 
             Console.WriteLine();
             Console.WriteLine("Derzeit aktuelle bundesweite Katastrophenmeldungen:");
-            await foreach (var warnMessage in warnMessageRepository.GetWarnMessagesAsync(true, WarnMessageType.Dwd, WarnMessageType.Lhp))
-            {
-                Console.WriteLine("{2:g} Uhr: ({0} / {1}) {3}: {4}", warnMessage.ContentType.ToDescription(), warnMessage.Severity.ToDescription(), warnMessage.StartDate, warnMessage.Content, warnMessage.Details);
+            await foreach (var warnMessage in warnMessageRepository.GetWarnMessagesAsync(WarnMessageType.MoWas)) {
+                await warnMessage.LoadDetailsAsync(warnMessageRepository);
+                Console.WriteLine("{2:g} Uhr: ({0} / {1}) {3}: {4}", warnMessage.ContentType.ToDescription(), warnMessage.Severity.ToDescription(), warnMessage.StartDate, warnMessage.Content, warnMessage.Details!.Description);
             }
 
         }

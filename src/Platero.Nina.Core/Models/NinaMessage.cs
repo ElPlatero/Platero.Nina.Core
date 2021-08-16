@@ -5,7 +5,7 @@ namespace Platero.Nina.Core.Models
     /// <summary>
     /// Eine Nachricht (Warnung) des Bundesamtes für Bevölkerungsschutz.
     /// </summary>
-    public class NinaMessage
+    public class NinaMessage : WarnMessageBase
     {
         /// <summary>
         /// Erstellt eine neue NINA-Nachricht.
@@ -13,12 +13,7 @@ namespace Platero.Nina.Core.Models
         /// <param name="type">Der Typ der Nachricht.</param>
         /// <param name="id">Die ID der Nachricht (vergeben vom Herausgeber).</param>
         /// <param name="hash">Der Hash der Nachricht (vergeben vom Herausgeber).</param>
-        public NinaMessage(NinaMessageType type, string id, string hash) => (Id, Hash, Type) = (id, hash, type);
-        
-        /// <summary>
-        /// Ruft die vom Herausgeber der Nachricht vergebene ID ab.
-        /// </summary>
-        public string Id { get; }
+        public NinaMessage(NinaMessageType type, string id, string hash): base(id) => (Hash, Type) = (hash, type);
         
         /// <summary>
         /// Ruft den vom Herausgeber der Nachricht vergebenen Hash ab.
